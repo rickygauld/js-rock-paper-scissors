@@ -34,7 +34,7 @@ function getHumanChoice() {
     // Return the Human Choice in a similar syntax
     switch (humanInput) {
         case null:
-            return console.error("Human Choice is null.");
+            return console.error("Human Choice is null."); // Error if user cancels prompt, may change to recursive function call
         case 'rock':
         case 'paper':
         case 'scissors':
