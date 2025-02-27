@@ -20,14 +20,18 @@ function getComputerChoice() {
 function getHumanChoice() {
     // Human Input from prompt
     let humanInput;
-    humanInput = prompt("Play 'Rock, Paper, Scissors!' Please select an option:").trim().toLowerCase();
+    humanInput = prompt("Play 'Rock, Paper, Scissors!' Please select an option:");
+
+    if (humanInput !== null) {
+        humanInput = humanInput.trim().toLowerCase();
+    }
 
     // Shorthand Single-Letter Inputs & Plurality Differences
-    if (humanInput == 'r' || 'rocks') {
+    if (humanInput === ('r' || 'rocks')) {
         humanInput = 'rock';
-    } else if (humanInput == 'p' || 'papers') {
+    } else if (humanInput === ('p' || 'papers')) {
         humanInput = 'paper';
-    } else if (humanInput == 's' || 'scissor') {
+    } else if (humanInput === ('s' || 'scissor')) {
         humanInput = 'scissors';
     }
 
