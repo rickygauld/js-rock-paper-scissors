@@ -1,58 +1,54 @@
 /* JavaScript file for Rock Paper Scissors Project */
 
 function getComputerChoice() {
-    let randomChoice = Math.floor(Math.random() * 3) + 1;
+    let randomChoice = Math.floor(Math.random() * 3) + 1; // random chance of '1', '2', or '3'
 
+    // Computer's Random Selection of Choice
     switch (randomChoice) {
         case 1: // Rock
             return 'rock';
-            break;
         case 2: // Paper
             return 'paper';
-            break;
         case 3: // Scissors
             return 'scissors';
-            break;
         default:
-            console.error("Could not return a valid choice.");
+            console.error("Could not return a valid choice."); // Default Error Handler
+            return getComputerChoice(); // Recursive function call
     }
-    return;
 }
 
 function getHumanChoice() {
-    if (humanInput === null) {
-        return console.error("Human Choice is null.");
-    } else if (humanInput.toLocaleLowerCase() == 'rock' || 'rocks') {
+    // Human Input from prompt
+    let humanInput;
+    humanInput = prompt("Play 'Rock, Paper, Scissors!' Please select an option:").trim().toLowerCase();
+
+    // Shorthand Single-Letter Inputs & Plurality Differences
+    if (humanInput == 'r' || 'rocks') {
         humanInput = 'rock';
-    } else if (humanInput.toLocaleLowerCase() == 'paper' || 'papers') {
+    } else if (humanInput == 'p' || 'papers') {
         humanInput = 'paper';
-    } else if (humanInput.toLocaleLowerCase() == 'scissors' || 'scissor') {
+    } else if (humanInput == 's' || 'scissor') {
         humanInput = 'scissors';
-    } else {
-        humanInput = 'unknown';
     }
-/* Debug */ console.log(humanInput);
+
+    // Return the Human Choice in a similar syntax
     switch (humanInput) {
         case null:
             return console.error("Human Choice is null.");
         case 'rock':
-            return 'rock';
         case 'paper':
-            return 'paper';
         case 'scissors':
-            return 'scissors';
+            return humanInput; // Valid humanInput
         default:
-            console.warn('no correct human choice was inputted');
+            console.log("Invalid choice entered. Please select a valid option of 'Rock', 'Paper, or 'Scissors':");
+            return getHumanChoice(); // Recursive function call - if invalid humanInput
     }
-
-    return humanInput;
 }
 
 function playRound(humanChoice, computerChoice) {
     return;
 }
 
-let humanInput = prompt("Play 'Rock, Paper, Scissors!' Please select an option:");
 const computerChoice = getComputerChoice();
 const humanChoice = getHumanChoice();
 
