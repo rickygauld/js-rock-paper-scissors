@@ -49,13 +49,114 @@ function getHumanChoice() {
     }
 }
 
-function playRound(humanChoice, computerChoice) {
+function playRound(getHumanChoice, getComputerChoice) {
+    const computerChoice = getComputerChoice();
+    const humanChoice = getHumanChoice();
+
+    // Computer Choice is ROCK
+    if (computerChoice === 'rock') {
+        switch (humanChoice) {
+            case 'rock': // Tie Logic
+                console.log("TIE! Both picked 'rock'. Please select again.")
+                return playRound(getHumanChoice, getComputerChoice); // Recursive function call - to get new choices
+                break;
+            case 'paper': // Win Logic
+                console.log(`You Win! Your choice '${humanChoice}' beats the computer choice '${computerChoice}'.`)
+                humanScore++;
+                break;
+            case 'scissors': // Lose Logic
+                console.log(`You Lose. Your choice '${humanChoice}' lost to the computer choice '${computerChoice}'.`)
+                computerScore++;
+                break;
+            default:
+                // logic
+        }
+    }
+
+    // Computer Choice is PAPER
+    if (computerChoice === 'paper') {
+        switch (humanChoice) {
+            case 'rock': // Lose Logic
+                console.log(`You Lose. Your choice '${humanChoice}' lost to the computer choice '${computerChoice}'.`)
+                computerScore++;
+                break;
+            case 'paper': // Tie Logic
+                console.log("TIE! Both picked 'paper'. Please select again.")
+                return playRound(getHumanChoice, getComputerChoice); // Recursive function call - to get new choices
+                break;
+            case 'scissors': // Win Logic
+                console.log(`You Win! Your choice '${humanChoice}' beats the computer choice '${computerChoice}'.`)
+                humanScore++;
+                break;
+            default:
+                // logic
+        }
+    }
+
+    // Computer Choice is SCISSORS
+    if (computerChoice === 'scissors') {
+        switch (humanChoice) {
+            case 'rock': // Win Logic
+                console.log(`You Win! Your choice '${humanChoice}' beats the computer choice '${computerChoice}'.`)
+                humanScore++;
+                break;
+            case 'paper': // Lose Logic
+                console.log(`You Lose. Your choice '${humanChoice}' lost to the computer choice '${computerChoice}'.`)
+                computerScore++;
+                break;
+            case 'scissors': // Tie Logic
+                console.log("TIE! Both picked 'scissors'. Please select again.")
+                return playRound(getHumanChoice, getComputerChoice); // Recursive function call - to get new choices
+                break;
+            default:
+                // logic
+        }
+    }
+    /* Debug */// console.log(winOrLose);
     return;
 }
 
-const computerChoice = getComputerChoice();
-const humanChoice = getHumanChoice();
+
+let winOrLose; // Variable return to determine human win or lose
+let computerScore = 0;
+let humanScore = 0;
+
+// playRound(humanChoice, computerChoice);
+// playGame();
 
 function playGame() {
-    return;
+    
+    playRound(getHumanChoice, getComputerChoice)
+
+    if (humanScore >= 5) {
+        console.log(`Congratulations! You win the game! The score was ${humanScore} to ${computerScore}.`);
+        return playAgain();
+    } else if (computerScore >= 5) {
+        console.log(`Tough Luck! You lost. The score was ${humanScore} to ${computerScore}.`);
+        return playAgain();
+    } else {
+        return playGame();
+    }
 }
+
+function playAgain() {
+    let playAgainChoice;
+    playAgainChoice = prompt("Woud you like to play again? ('yes'/'no')")
+
+    if (playAgainChoice !== null) {
+        playAgainChoice = playAgainChoice.trim().toLowerCase();
+    }
+
+    if (playAgainChoice === 'yes') {
+        humanScore = 0;
+        computerScore = 0;
+        return playGame();
+    } else if (playAgainChoice === 'no') {
+        return console.log("Thanks for Playing! Refresh the webpage if you would like to play again!");
+    } else {
+        console.log("Unknown input. Please type 'yes' or 'no' if you would like to play again.");
+        return playAgain();
+    }
+}
+
+playGame();
